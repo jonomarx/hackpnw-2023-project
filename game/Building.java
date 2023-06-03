@@ -6,7 +6,7 @@ public class Building {
 		Tile t = new Tile(10,10);
 		ArrayList<Tile> test = new ArrayList<Tile>();
 		test.add(t);
-		Building b = new Building(test,10,10,"testBuilding",10,10);
+		Building b = new Building(0,0,1,1,10,10,"testBuilding",10,10);
 		System.out.println(b.tilesOccupied().get(0));
 		System.out.println(b.price());
 		System.out.println(b.cashFlow());
@@ -16,7 +16,7 @@ public class Building {
 	}
 	//tile list
 	//set tile to somthing
-	private ArrayList<Tile> tilesOccupied=newArrayList<>;
+	private ArrayList<Tile> tilesOccupied=new ArrayList<>();
 	private int price;
 	private int cashFlow;
 	private String name;
