@@ -37,8 +37,8 @@ public class Tile implements Renderable {
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
 		if(content < 0) return;
-		int xx = (int)Math.round(x*Main.SCALE+xoffset);
-		int yy = (int)Math.round(y*Main.SCALE+yoffset);
+		int xx = (int)Math.round(x*Main.SCALE+yoffset); // it just works.
+		int yy = (int)Math.round(y*Main.SCALE+xoffset);
 		g.drawImage(GameSim.getSpriteSheet().getImage(content), xx, yy, Main.SCALE, Main.SCALE, null);
 		g.setColor(Color.BLACK);
 	}

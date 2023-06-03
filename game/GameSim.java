@@ -45,4 +45,8 @@ public class GameSim {
 	public boolean checkIfOccupied(int x, int y) {
 		return tiles[x][y].getContent() < 0;
 	}
+	
+	public Tile[][] getTiles() {
+		return tiles;
+	}
 }

@@ -12,6 +12,6 @@ public class Coal {
 	public Coal (int posx, int posy, int cost, int pollution) {
 		// Check to see if the tile is aviliable.
 		
-		super PowerPlant();
+		super();
 	}
 }
