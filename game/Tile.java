@@ -8,7 +8,7 @@ import core.Renderable;
 public class Tile implements Renderable {
 	private int x;
 	private int y;
-	private int content; // an ID of whats on it, eg: -1 is nothing
+	private int content = -1; // an ID of whats on it, eg: -1 is nothing
 	private Building localBuilding;
 	private boolean occupied = false;
 	public Tile(int x, int y) {
@@ -28,7 +28,7 @@ public class Tile implements Renderable {
 		this.content = id;
 	}
 	
-	public int getContent(int id) {
+	public int getContent() {
 		return content;
 	}
 
