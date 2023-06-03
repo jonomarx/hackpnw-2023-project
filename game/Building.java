@@ -83,4 +83,7 @@ public class Building {
 	public int powerflow() {
 		return powerflow;
 	}
+	public void update(int tick) {
+		
+	}
 }

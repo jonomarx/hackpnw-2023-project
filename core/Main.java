@@ -1,10 +1,17 @@
 package core;
 
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import game.Background;
 import game.GameSim;
@@ -13,16 +20,37 @@ public class Main {
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
 	public static final int SCALE = 100;
+	public static final int TICKSPERDAY = 180;
 	private static Renderer drawer;
 	private static final int MOVEAMOUNT = 5;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		System.out.println("HI");
 		JFrame frame = new JFrame();
 		drawer = new Renderer();
+		
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		boolean[] start = {false};
+		/*title.addListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				start[0] = true;
+				frame.setContentPane(drawer);
+				frame.setVisible(true);
+			}
+		});
+		frame.setContentPane(title);*/
 		frame.setContentPane(drawer);
+		
+		RenderLayer layer = new RenderLayer("background");
+		Background back = new Background("/res/test.png");
+		layer.addObject(back);
+		drawer.addRenderLayer(layer);
+		
+		GameSim.init();
+		
+		frame.setVisible(true);
 		
 		boolean[] keys = new boolean[4];
 		frame.addKeyListener(new KeyListener() {
@@ -66,29 +94,20 @@ public class Main {
 			public void keyTyped(KeyEvent arg0) {}
 		});
 		
-		RenderLayer layer = new RenderLayer("background");
-		Background back = new Background("/res/test.png");
-		layer.addObject(back);
-		drawer.addRenderLayer(layer);
-		
-		GameSim.init();
-		
-		frame.setVisible(true);
-		
 		int tick = 0;
 		while(true) {
 			frame.repaint();
 			if(keys[0]) {
-				drawer.moveX(-MOVEAMOUNT);
-			}
-			if(keys[1]) {
-				drawer.moveY(-MOVEAMOUNT);
-			}
-			if(keys[2]) {
 				drawer.moveX(MOVEAMOUNT);
 			}
-			if(keys[3]) {
+			if(keys[1]) {
 				drawer.moveY(MOVEAMOUNT);
+			}
+			if(keys[2]) {
+				drawer.moveX(-MOVEAMOUNT);
+			}
+			if(keys[3]) {
+				drawer.moveY(-MOVEAMOUNT);
 			}
 			if(tick % 10 == 0) { // 6 ticks per second
 				GameSim.update();
@@ -100,5 +119,24 @@ public class Main {
 	
 	public static void addRenderLayer(RenderLayer layer) {
 		drawer.addRenderLayer(layer);
+	}
+}
+
+class TitleScreen extends JPanel {
+	JButton button;
+	BufferedImage image;
+	public TitleScreen() throws IOException {
+		button = new JButton("Start!");
+		add(button);
+		image = ImageIO.read(TitleScreen.class.getResourceAsStream("/res/test.png"));
+	}
+	
+	public void addListener(ActionListener al) {
+		button.addActionListener(al);
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		g.drawImage(image, 0, 0, Main.WIDTH, Main.HEIGHT, null);
 	}
 }
