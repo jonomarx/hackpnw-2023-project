@@ -42,7 +42,11 @@ public class GameSim {
 		return spriteSheet;
 	}
 	
-	public boolean checkIfOccupied(int x, int y) {
+	public static boolean checkIfOccupied(int x, int y) {
 		return tiles[x][y].getContent() < 0;
+	}
+	
+	public static Tile[][] getTiles() {
+		return tiles;
 	}
 }

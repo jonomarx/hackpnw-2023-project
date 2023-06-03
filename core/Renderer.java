@@ -25,4 +25,12 @@ public class Renderer extends JPanel {
 			layer.paint(g, x, y);
 		}
 	}
+	
+	public void moveX(int amount) {
+		x += amount;
+	}
+	
+	public void moveY(int amount) {
+		y += amount;
+	}
 }
