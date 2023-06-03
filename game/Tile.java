@@ -7,7 +7,8 @@ import core.Renderable;
 public class Tile implements Renderable {
 	private int x;
 	private int y;
-	private int content; // an ID of whats on it, eg: 0 is 
+	
+	private int content; // an ID of whats on it, eg: -1 is nothing 
 	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;

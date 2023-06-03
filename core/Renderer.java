@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class Renderer extends JPanel {
+	// camera position, offsets tiles and game objects
 	private int x = 0;
 	private int y = 0;
 	// manage something involving stuff to render and the order of it
