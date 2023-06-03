@@ -24,8 +24,8 @@ public class Building {
 	private int powerflow;
 	private int x;
 	private int y;
-	private int width;
-	private int height;
+	private final int width;
+	private final int height;
 	public Building(int xIn, int yIn, int widthIn, int heightIn, int priceIn, int cashFlowIn,
 					String nameIn, int pollutionIn, int powerflowIn) {
 		x=xIn;
@@ -50,7 +50,19 @@ public class Building {
 			System.exit(-1);
 		}
 	}
-
+	public int x() {
+	return x;
+	}
+	public int y(){
+	return y;
+	}
+	public int width() {
+	return width;
+	}
+	public int height() {
+	return height;
+	}
+	
 	public ArrayList<Tile> tilesOccupied() {
 		return tilesOccupied;
 	}
