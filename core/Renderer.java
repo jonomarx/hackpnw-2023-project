@@ -2,11 +2,16 @@ package core;
 
 import java.awt.Graphics;
 
-public class Renderer {
+import javax.swing.JPanel;
+
+public class Renderer extends JPanel {
 	// manage something involving stuff to render and the order of it
 	
+	public void Renderer() {
+		
+	}
 	
-	public static void render(Graphics g) {
-		// todo...
+	public void paintComponent(Graphics g) {
+		// does all the drawing
 	}
 }
