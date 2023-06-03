@@ -3,6 +3,8 @@ package core;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+
+// a layer of rendering, split into stuff
 public class RenderLayer {
 	private String name;
 	private ArrayList<Renderable> stuffToDraw = new ArrayList<>();
