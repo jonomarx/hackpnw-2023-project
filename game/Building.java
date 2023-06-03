@@ -1,5 +1,5 @@
 package game;
-
+import java.util.ArrayList;
 public class Building {
 	public static void Main(String[] args) {
 		Tile t = new Tile(10,10);
@@ -11,6 +11,7 @@ public class Building {
 		System.out.println(b.cashFlow());
 		System.out.println(b.name());
 		System.out.println(b.pollution());
+		System.out.println(b.cashFlow());
 	}
 	//tile list
 	//set tile to somthing
