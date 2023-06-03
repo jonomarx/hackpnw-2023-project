@@ -5,6 +5,5 @@ public class PowerPlant extends Building {
 	
 	public PowerPlant(int x, int y, int length, int width) {
 		// Use building class and put in the coordinates. 
-		
 	}
 }

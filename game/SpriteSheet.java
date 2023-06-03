@@ -14,7 +14,7 @@ public class SpriteSheet {
 	private int imgSize;
 	
 	public SpriteSheet(String imgLoc, int imgSize) throws IOException {
-		image = ImageIO.read(new File(imgLoc));
+		image = ImageIO.read(SpriteSheet.class.getResourceAsStream(imgLoc));
 		length = image.getWidth()/imgSize;
 		height = image.getHeight()/imgSize;
 		this.imgSize = imgSize;
