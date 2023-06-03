@@ -16,21 +16,39 @@ public class Building {
 	}
 	//tile list
 	//set tile to somthing
-	private ArrayList<Tile> tilesOccupied;
+	private ArrayList<Tile> tilesOccupied=newArrayList<>;
 	private int price;
 	private int cashFlow;
 	private String name;
 	private int pollution;
 	private int powerflow;
-	public Building(ArrayList<Tile> tilesOccupiedIn, int priceIn, int cashFlowIn,
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	public Building(int xIn, int yIn, int widthIn, int heightIn, int priceIn, int cashFlowIn,
 					String nameIn, int pollutionIn, int powerflowIn) {
-		tilesOccupied = tilesOccupiedIn;
+		x=xIn;
+		y=yIn;
+		width=widthIn;
+		height=heightIn;
 		price = priceIn;
 		cashFlow = cashFlowIn;
 		name = nameIn;
 		pollution = pollutionIn;
 		powerflow = powerflowIn;
-
+		Tile[][] tiles = GameSim.getTiles();
+		try {
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				tilesOccupied.add(tiles[i][j]);
+			}
+		}
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("Building index is out of bonds");
+			System.exit(-1);
+		}
 	}
 
 	public ArrayList<Tile> tilesOccupied() {
