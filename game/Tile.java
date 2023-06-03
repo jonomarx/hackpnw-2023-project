@@ -47,7 +47,7 @@ public class Tile implements Renderable {
 
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
-		g.drawImage(GameSim.getSpriteSheet().getImage(content), (int)Math.round(x*Main.SCALE+xoffset), (int)Math.round(y*Main.SCALE+yoffset), null);
+		g.drawImage(GameSim.getSpriteSheet().getImage(content), (int)Math.round(x*Main.SCALE+xoffset), (int)Math.round(y*Main.SCALE+yoffset), Main.SCALE, Main.SCALE, null );
 	}
 
 }

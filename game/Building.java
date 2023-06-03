@@ -1,9 +1,11 @@
 package game;
 
+import java.util.ArrayList;
+
 public class Building {
 	public static void Main(String[] args) {
 		Tile t = new Tile(10,10);
-		ArrayList<Tile> test = new ArrayList<Tile>;
+		ArrayList<Tile> test = new ArrayList<Tile>();
 		test.add(t);
 		Building b = new Building(test,10,10,"testBuilding",10,10);
 		System.out.println(b.tilesOccupied().get(0));
@@ -27,8 +29,8 @@ public class Building {
 		cashFlow = cashFlowIn;
 		name = nameIn;
 		pollution = pollutionIn;
-		powerflow = powerflowIn
-		for(Tiles t : tilesOccupied) {
+		powerflow = powerflowIn;
+		for(Tile t : tilesOccupied) {
 			t.addBuilding(this);
 		}
 

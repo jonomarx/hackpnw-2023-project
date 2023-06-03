@@ -1,7 +1,10 @@
 package core;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
+import game.Background;
 import game.GameSim;
 
 public class Main {
@@ -9,7 +12,7 @@ public class Main {
 	public static final int HEIGHT = 100;
 	public static final int SCALE = 1;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		System.out.println("HI");
 		JFrame frame = new JFrame();
 		Renderer drawer = new Renderer();
@@ -18,6 +21,11 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(drawer);
 		frame.setVisible(true);
+		
+		RenderLayer layer = new RenderLayer("background");
+		Background back = new Background("res/test.png");
+		layer.addObject(back);
+		drawer.addRenderLayer(layer);
 		
 		int tick = 0;
 		while(true) {
