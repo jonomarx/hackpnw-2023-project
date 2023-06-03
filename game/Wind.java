@@ -57,10 +57,12 @@ public class Wind extends PowerPlant {
 
     
      
-    public Wind (int posx, int posy, int width, int height, int cost, int pollution)
+    public Wind (int posx, int posy, int width, int height, int cost)
     {        
-        super(posx, posy, width, height, cost, 0, "Wind", pollution, 2);
-        noise(3.14,42,7);
-        
+        super(posx, posy, width, height, cost, 0, "Wind", 0, 2);
+    }
+    
+    public void update(int tick) {
+    	powerflow = noise(tick,0,0);
     }
 }

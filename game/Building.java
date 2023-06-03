@@ -2,26 +2,14 @@ package game;
 import java.util.ArrayList;
 
 public class Building {
-	public static void Main(String[] args) {
-		Tile t = new Tile(10,10);
-		ArrayList<Tile> test = new ArrayList<Tile>();
-		test.add(t);
-		Building b = new Building(0,0,1,1,10,10,"testBuilding",10,10);
-		System.out.println(b.tilesOccupied().get(0));
-		System.out.println(b.price());
-		System.out.println(b.cashFlow());
-		System.out.println(b.name());
-		System.out.println(b.pollution());
-		System.out.println(b.cashFlow());
-	}
 	//tile list
 	//set tile to somthing
 	private ArrayList<Tile> tilesOccupied=new ArrayList<>();
-	private int price;
-	private int cashFlow;
+	protected double price;
+	protected double cashFlow;
 	private String name;
-	private int pollution;
-	private int powerflow;
+	protected double pollution;
+	protected double powerflow;
 	private int x;
 	private int y;
 	private final int width;
@@ -42,6 +30,7 @@ public class Building {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
 				tilesOccupied.add(tiles[i][j]);
+				tiles[i][j].setContent(1);
 			}
 		}
 		}
@@ -67,22 +56,33 @@ public class Building {
 		return tilesOccupied;
 	}
 
-	public int price() {
+	public double price() {
 		return price;
 	}
-	public int cashFlow() {
+	public double cashFlow() {
 		return cashFlow;
 	}
 
 	public String name() {
 		return name;
 	}
-	public int pollution() {
+	public double pollution() {
 		return pollution;
 	}
-	public int powerflow() {
+	public double powerflow() {
 		return powerflow;
 	}
+	
+	public void deconstruct() {
+		Tile[][] tiles = GameSim.getTiles();
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				tiles[i][j].setContent(-1);
+			}
+		}
+		tilesOccupied.clear();
+	}
+	
 	public void update(int tick) {
 		
 	}
