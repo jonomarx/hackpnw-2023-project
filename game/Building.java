@@ -17,11 +17,11 @@ public class Building {
 	//tile list
 	//set tile to somthing
 	private ArrayList<Tile> tilesOccupied=new ArrayList<>();
-	private int price;
-	private int cashFlow;
+	protected double price;
+	protected double cashFlow;
 	private String name;
-	private int pollution;
-	private int powerflow;
+	protected double pollution;
+	protected double powerflow;
 	private int x;
 	private int y;
 	private final int width;
@@ -67,20 +67,23 @@ public class Building {
 		return tilesOccupied;
 	}
 
-	public int price() {
+	public double price() {
 		return price;
 	}
-	public int cashFlow() {
+	public double cashFlow() {
 		return cashFlow;
 	}
 
 	public String name() {
 		return name;
 	}
-	public int pollution() {
+	public double pollution() {
 		return pollution;
 	}
-	public int powerflow() {
+	public double powerflow() {
 		return powerflow;
+	}
+	public void update(int tick) {
+		
 	}
 }
