@@ -28,6 +28,7 @@ public class Tile implements Renderable {
 	public int getContent(int id) {
 		return content;
 	}
+	
 
 	@Override
 	public void render(Graphics g, int xoffset, int yoffset) {
