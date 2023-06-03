@@ -8,8 +8,9 @@ import core.Renderable;
 public class Tile implements Renderable {
 	private int x;
 	private int y;
-	
-	private int content; // an ID of whats on it, eg: -1 is nothing 
+	private int content; // an ID of whats on it, eg: -1 is nothing
+	private Building localBuilding;
+	private boolean occupied = false;
 	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -30,7 +31,19 @@ public class Tile implements Renderable {
 	public int getContent(int id) {
 		return content;
 	}
-	
+
+	public boolean isOccupied() {
+		return occupied;
+	}
+	public boolean addBuilding(Building b) {
+		if(!occupied) {
+			localBuilding = b;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
