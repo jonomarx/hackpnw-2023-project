@@ -13,7 +13,7 @@ public class Main {
 		System.out.println("HI");
 		JFrame frame = new JFrame();
 		Renderer drawer = new Renderer();
-		GameSim sim = new GameSim();
+		GameSim.init();
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(drawer);
@@ -23,7 +23,7 @@ public class Main {
 		while(true) {
 			frame.repaint();
 			tick++;
-			if(tick % 12 == 0) {
+			if(tick % 10 == 0) { // 6 ticks per second
 				GameSim.update();
 			}
 			Thread.sleep(16);

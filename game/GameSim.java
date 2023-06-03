@@ -9,9 +9,18 @@ public class GameSim {
 	private static double money = 20000;
 	private static int tick = 0;
 	private static double budget = 0;
+	private static SpriteSheet spriteSheet;
 	// statuses of the stuff -Tien
 	
-	public GameSim() {
+	public static void init() {
 		
+	}
+	
+	public static void update() {
+		
+	}
+	
+	public static SpriteSheet getSpriteSheet() {
+		return spriteSheet;
 	}
 }

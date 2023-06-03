@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Graphics;
 
+import core.Main;
 import core.Renderable;
 
 public class Tile implements Renderable {
@@ -45,8 +46,8 @@ public class Tile implements Renderable {
 	}
 
 	@Override
-	public void render(Graphics g, int xoffset, int yoffset) {
-		// TODO Auto-generated method stub
+	public void render(Graphics g, double xoffset, double yoffset) {
+		g.drawImage(GameSim.getSpriteSheet().getImage(content), (int)Math.round(x*Main.SCALE+xoffset), (int)Math.round(y*Main.SCALE+yoffset), null);
 	}
 
 }
