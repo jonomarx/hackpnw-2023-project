@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import core.Main;
@@ -35,7 +36,11 @@ public class Tile implements Renderable {
 
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
-		g.drawImage(GameSim.getSpriteSheet().getImage(content), (int)Math.round(x*Main.SCALE+xoffset), (int)Math.round(y*Main.SCALE+yoffset), Main.SCALE, Main.SCALE, null );
+		if(content < 0) return;
+		int xx = (int)Math.round(x*Main.SCALE+xoffset);
+		int yy = (int)Math.round(y*Main.SCALE+yoffset);
+		g.drawImage(GameSim.getSpriteSheet().getImage(content), xx, yy, Main.SCALE, Main.SCALE, null);
+		g.setColor(Color.BLACK);
 	}
 
 }
