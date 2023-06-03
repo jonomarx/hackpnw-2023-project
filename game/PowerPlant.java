@@ -6,6 +6,6 @@ public class PowerPlant extends Building {
 	// maybe put in x, y later
 	public PowerPlant(int x, int y, int width, int height, int cost, int cashflow, String type, int pollution, int powerflow) {
 		// Use building class and put in the coordinates. 
-		super(x, y, width, height, cost, cashflow, type, pollution, powerflow);
+		super(occupied, cost, cashflow, type, pollution, powerflow);
 	}
 }
