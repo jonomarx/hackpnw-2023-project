@@ -1,11 +1,6 @@
 package game;
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
-
 import java.util.ArrayList;
 
->>>>>>> df4fb00fcc94468951d261f940012fe2d019ceeb
 public class Building {
 	public static void Main(String[] args) {
 		Tile t = new Tile(10,10);
