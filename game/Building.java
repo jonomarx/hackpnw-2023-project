@@ -9,8 +9,9 @@ public class Building {
 	private String name;
 	private int pollution;
 	private int powerflow;
+	private int id;
+	public Building(ArrayList<Tiles> tilesOccupiedIn, int priceIn, int cashFlowIn, String nameIn, int pollutionIn, int powerflowIn) {
+		price = priceIn;
 
-	public Building(ArrayList<Tiles> tilesOccupiedIn, int priceIn, int cashFlowIn, String nameIn,  ) {
-		
 	}
 }
