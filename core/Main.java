@@ -27,13 +27,12 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		JFrame frame = new JFrame();
 		drawer = new Renderer();
-		TitleScreen title = new TitleScreen();
 		
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		boolean[] start = {false};
-		title.addListener(new ActionListener() {
+		/*title.addListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				start[0] = true;
@@ -41,7 +40,8 @@ public class Main {
 				frame.setVisible(true);
 			}
 		});
-		frame.setContentPane(title);
+		frame.setContentPane(title);*/
+		frame.setContentPane(drawer);
 		
 		RenderLayer layer = new RenderLayer("background");
 		Background back = new Background("/res/test.png");
@@ -52,9 +52,6 @@ public class Main {
 		
 		frame.setVisible(true);
 		
-		while(!start[0]) {
-			Thread.sleep(100);
-		}
 		boolean[] keys = new boolean[4];
 		frame.addKeyListener(new KeyListener() {
 			@Override
@@ -97,21 +94,20 @@ public class Main {
 			public void keyTyped(KeyEvent arg0) {}
 		});
 		
-		System.out.println("game start");
 		int tick = 0;
 		while(true) {
 			frame.repaint();
 			if(keys[0]) {
-				drawer.moveX(-MOVEAMOUNT);
-			}
-			if(keys[1]) {
-				drawer.moveY(-MOVEAMOUNT);
-			}
-			if(keys[2]) {
 				drawer.moveX(MOVEAMOUNT);
 			}
-			if(keys[3]) {
+			if(keys[1]) {
 				drawer.moveY(MOVEAMOUNT);
+			}
+			if(keys[2]) {
+				drawer.moveX(-MOVEAMOUNT);
+			}
+			if(keys[3]) {
+				drawer.moveY(-MOVEAMOUNT);
 			}
 			if(tick % 10 == 0) { // 6 ticks per second
 				GameSim.update();
