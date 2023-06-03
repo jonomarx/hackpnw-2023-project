@@ -23,6 +23,6 @@ public class SpriteSheet {
 	public BufferedImage getImage(int id) {
 		int x = id % length;
 		int y = id / length;
-		return image.getSubimage(x, y, imgSize, imgSize);
+		return image.getSubimage(x*imgSize, y*imgSize, imgSize, imgSize);
 	}
 }

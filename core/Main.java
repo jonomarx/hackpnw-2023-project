@@ -10,13 +10,13 @@ import game.GameSim;
 public class Main {
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
-	public static final int SCALE = 1;
+	public static final int SCALE = 100;
+	private static Renderer drawer;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		System.out.println("HI");
 		JFrame frame = new JFrame();
-		Renderer drawer = new Renderer();
-		GameSim.init();
+		drawer = new Renderer();
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(drawer);
@@ -27,6 +27,7 @@ public class Main {
 		layer.addObject(back);
 		drawer.addRenderLayer(layer);
 		
+		GameSim.init();
 		
 		int tick = 0;
 		while(true) {
@@ -37,6 +38,10 @@ public class Main {
 			}
 			Thread.sleep(16);
 		}
+	}
+	
+	public static void addRenderLayer(RenderLayer layer) {
+		drawer.addRenderLayer(layer);
 	}
 
 }

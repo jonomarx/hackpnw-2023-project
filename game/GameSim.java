@@ -2,6 +2,9 @@ package game;
 
 import java.io.IOException;
 
+import core.Main;
+import core.RenderLayer;
+
 public class GameSim {
 	private static final int tileWidth = 4;
 	private static final int tileHeight = 4;
@@ -16,11 +19,14 @@ public class GameSim {
 	
 	public static void init() throws IOException {
 		spriteSheet = new SpriteSheet("/res/testsheet.png", 4);
+		RenderLayer layer = new RenderLayer("tiles");
 		for(int i = 0; i < tiles.length; i++) {
 			for(int j = 0; j < tiles[0].length; j++) {
 				tiles[i][j] = new Tile(i,j);
+				layer.addObject(tiles[i][j]);
 			}
 		}
+		Main.addRenderLayer(layer);
 		
 		tiles[0][0].setContent(0);
 		tiles[0][1].setContent(1);
