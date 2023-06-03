@@ -32,18 +32,6 @@ public class Tile implements Renderable {
 		return content;
 	}
 
-	public boolean isOccupied() {
-		return occupied;
-	}
-	public boolean addBuilding(Building b) {
-		if(!occupied) {
-			localBuilding = b;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {

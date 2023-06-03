@@ -30,9 +30,6 @@ public class Building {
 		name = nameIn;
 		pollution = pollutionIn;
 		powerflow = powerflowIn;
-		for(Tile t : tilesOccupied) {
-			t.addBuilding(this);
-		}
 
 	}
 
