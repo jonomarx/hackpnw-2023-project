@@ -1,7 +1,1 @@
-/Main.class
-/City.class
-/Window.class
-/Renderer.class
-/RenderLayer.class
-/Renderable.class
-/Status.class
+*.class
