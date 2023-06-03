@@ -2,18 +2,6 @@ package game;
 import java.util.ArrayList;
 
 public class Building {
-	public static void Main(String[] args) {
-		Tile t = new Tile(10,10);
-		ArrayList<Tile> test = new ArrayList<Tile>();
-		test.add(t);
-		Building b = new Building(0,0,1,1,10,10,"testBuilding",10,10);
-		System.out.println(b.tilesOccupied().get(0));
-		System.out.println(b.price());
-		System.out.println(b.cashFlow());
-		System.out.println(b.name());
-		System.out.println(b.pollution());
-		System.out.println(b.cashFlow());
-	}
 	//tile list
 	//set tile to somthing
 	private ArrayList<Tile> tilesOccupied=new ArrayList<>();
@@ -42,6 +30,7 @@ public class Building {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
 				tilesOccupied.add(tiles[i][j]);
+				tiles[i][j].setContent(1);
 			}
 		}
 		}
@@ -83,6 +72,17 @@ public class Building {
 	public double powerflow() {
 		return powerflow;
 	}
+	
+	public void deconstruct() {
+		Tile[][] tiles = GameSim.getTiles();
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				tiles[i][j].setContent(-1);
+			}
+		}
+		tilesOccupied.clear();
+	}
+	
 	public void update(int tick) {
 		
 	}

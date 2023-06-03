@@ -27,11 +27,6 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
-		
-		tiles[0][0].setContent(0);
-		tiles[0][1].setContent(1);
-		tiles[1][0].setContent(2);
-		tiles[1][1].setContent(3);
 	}
 	
 	public static void update() {
@@ -48,5 +43,9 @@ public class GameSim {
 	
 	public static Tile[][] getTiles() {
 		return tiles;
+	}
+	
+	public boolean placeBuilding(String type) {
+		
 	}
 }
