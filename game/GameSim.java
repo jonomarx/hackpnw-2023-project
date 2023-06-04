@@ -20,13 +20,13 @@ public class GameSim {
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Nuclear", new BuildingInfo("Nuclear", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Oil", new BuildingInfo("Oil", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Wind", new BuildingInfo("Wind", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Solar", new BuildingInfo("Solar", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Residential", new BuildingInfo("Residential", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Office", new BuildingInfo("Office", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Industry", new BuildingInfo("Industry", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
+		//buildings.add("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
+		//buildings.add("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
+		//buildings.add("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
+		//buildings.add("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
+		//buildings.add("Residential", new BuildingInfo("Residential", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		//buildings.add("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		
 	}
 	// statuses of the stuff -Tien
 	
