@@ -40,7 +40,7 @@ public class GameSim {
 	public static void init() throws IOException {
 		spriteSheet = new SpriteSheet("/res/testsheet.png", 4);
 		RenderLayer layer = new RenderLayer("tiles");
-		initTiles("C:/Users/froze/Documents/GitHub/hackpnw-2023-project/res/Starting-Map.png");
+		initTiles("/res/Starting-Map.png");
 		for(int i = 0; i < tiles.length; i++) {
 			for(int j = 0; j < tiles[0].length; j++) {
 				tiles[i][j] = new Tile(i,j);
@@ -150,8 +150,8 @@ public class GameSim {
 	}
 	private static void initTiles(String fileName) {
 		try {
-			File file= new File(fileName);
-		      BufferedImage img = ImageIO.read(file);
+			
+		      BufferedImage img = ImageIO.read(GameSim.class.getResourceAsStream(fileName));
 		      for (int y = 0; y < img.getHeight(); y++) {
 		         for (int x = 0; x < img.getWidth(); x++) {
 		            //Retrieving contents of a pixel
