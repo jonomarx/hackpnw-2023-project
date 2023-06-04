@@ -213,6 +213,34 @@ public class GameSim {
 			System.exit(10);
 		}
 	}
+	private static boolean deconstructTile(Tile t) {
+		boolean found=false;
+		for(int k = 0; k < activeConsumers.size(); k++) {
+			Consumer c = activeConsumers.get(k);
+			for(int i = c.x(); i <c.x()+c.width(); i++) {
+				for(int j = c.y(); j <c.y()+c.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						c.deconstruct();
+						return true;
+					}
+				}
+			}
+		}
+		for(int k = 0; k < activePowerPlants.size(); k++) {
+			PowerPlant p = activePowerPlants.get(k);
+			for(int i = p.x(); i <p.x()+p.width(); i++) {
+				for(int j = p.y(); j <p.y()+p.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						p.deconstruct();
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
