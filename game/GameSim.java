@@ -48,6 +48,11 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
+<<<<<<< Updated upstream
+=======
+		PowerPlant building = new Wind(0, 0, 2, 2, 0);
+		activePowerPlants.add(building);
+>>>>>>> Stashed changes
 	}
 	
 	public static void update() {
@@ -67,8 +72,15 @@ public class GameSim {
 		double gasEmissions = 0;
 		double gasPrice = 0;
 		double expenses = 0;
+<<<<<<< Updated upstream
 		for(PowerPlant p : activePowerPlants) {
 			switch(p.name()) {
+=======
+		for(PowerPlant pp : activePowerPlants) {
+			pp.update(tick);
+			BuildingInfo p = buildings.get(pp.name());
+			switch(p.name) {
+>>>>>>> Stashed changes
 				case "Coal":
 					baselinePower += p.powerflow();
 					expenses -= p.cashFlow();
@@ -115,6 +127,13 @@ public class GameSim {
 			emissions += pOfGasRequired * gasEmissions;
 		}
 		double moneys = income - expenses;
+<<<<<<< Updated upstream
+=======
+		
+		money += moneys;
+		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
+		tick++;
+>>>>>>> Stashed changes
 	}
 	private static Building getBuilding(int id, int x, int y) {
 		switch(id) {
