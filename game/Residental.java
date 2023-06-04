@@ -11,7 +11,7 @@ public class Residental extends Consumer {
 
  public Residental(int xIn, int yIn)
  {
-    super(xIn, yIn, WIDTH, HEIGHT, price, cashFlow, name, pollution, powerFlow);
+    super(xIn, yIn, WIDTH, HEIGHT, price, cashFlow, name, pollution, powerFlow, 6);
 
  }
 }

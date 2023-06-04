@@ -59,7 +59,7 @@ public class Wind extends PowerPlant {
      
     public Wind (int posx, int posy, int width, int height, int cost)
     {        
-        super(posx, posy, width, height, cost, 0, "Wind", 0, 2);
+        super(posx, posy, width, height, cost, 0, "Wind", 0, 2, 4);
     }
     
     public void update(int tick) {

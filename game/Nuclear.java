@@ -11,7 +11,7 @@ public class Nuclear extends PowerPlant{
 
 	//coal constructor
 	public Nuclear (int posx, int posy, int cost, int pollution) {
-		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Nuclear", pollution, 100);
+		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Nuclear", pollution, 100, 2);
 		
 		// Check to see if the tile is aviliable.
 		x=posx;

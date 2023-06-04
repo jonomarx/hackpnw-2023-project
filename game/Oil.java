@@ -11,7 +11,7 @@ public class Oil extends PowerPlant {
 	
 	//coal constructor
 	public Oil (int posx, int posy, int cost, int pollution) {
-		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Oil", pollution, 75);
+		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Oil", pollution, 75, 3);
 		// Check to see if the tile is aviliable.
 		x=posx;
 		y=posy;
