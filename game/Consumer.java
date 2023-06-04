@@ -6,5 +6,9 @@ public class Consumer extends Building {
 		super(xIn, yIn, widthIn, heightIn, priceIn, cashFlowIn, nameIn, pollutionIn, powerflowIn, idIn);
 		// TODO Auto-generated constructor stub
 	}
-
+	public Consumer(int x, int y, int width, int height, int cost, int cashflow, String type, int pollution, int powerflow, int id, int[][][] anim) {
+		// Use building class and put in the coordinates. 
+		super(x, y, width, height, cost, cashflow, type, pollution, powerflow, id, anim);
+		
+	}
 }

@@ -11,7 +11,7 @@ public class Nuclear extends PowerPlant{
 	
 	//coal constructor
 	public Nuclear (int posx, int posy) {
-		super(posx, posy, 1, 1, 100, -80, "Nuclear", 0, 100, 2);
+		super(posx, posy, 9, 4, 100, -80, "Nuclear", 0, 100, 2);
 
 		x=posx;
 		y=posy;

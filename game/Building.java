@@ -15,6 +15,7 @@ public class Building {
 	private final int width;
 	private final int height;
 	private final int id;
+	
 	public Building(int xIn, int yIn, int widthIn, int heightIn, int priceIn, int cashFlowIn,
 					String nameIn, int pollutionIn, int powerflowIn, int idIn) {
 		id = idIn;
@@ -31,7 +32,7 @@ public class Building {
 		try {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
-				if(tiles[i][j]==null) {
+				if(tiles[i][j] == null) {
 					tiles[i][j] = new Tile(i,j);
 				}
 				tilesOccupied.add(tiles[i][j]);
@@ -44,6 +45,38 @@ public class Building {
 			System.exit(-1);
 		}
 	}
+	
+	public Building(int xIn, int yIn, int widthIn, int heightIn, int priceIn, int cashFlowIn,
+					String nameIn, int pollutionIn, int powerflowIn, int idIn, int[][][] tileTable) {
+		id = idIn;
+		x=xIn;
+		y=yIn;
+		width=widthIn;
+		height=heightIn;
+		price = priceIn;
+		cashFlow = cashFlowIn;
+		name = nameIn;
+		pollution = pollutionIn;
+		powerflow = powerflowIn;
+		Tile[][] tiles = GameSim.getTiles();
+		try {
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				if(tiles[i][j] == null) {
+					tiles[i][j] = new Tile(i,j);
+				}
+				tilesOccupied.add(tiles[i][j]);
+				tiles[i][j].setContents(tileTable[i-x][j-y]);
+			}
+		}
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("Building index is out of bonds");
+			e.printStackTrace();
+			System.exit(-1);
+		}
+	}
+	
 	public int x() {
 	return x;
 	}

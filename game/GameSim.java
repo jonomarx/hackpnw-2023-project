@@ -38,7 +38,7 @@ public class GameSim {
 	// statuses of the stuff -Tien
 	
 	public static void init() throws IOException {
-		spriteSheet = new SpriteSheet("/res/testsheet.png", 4);
+		spriteSheet = new SpriteSheet("/res/finalSpritesheet.png", 50);
 		initTiles("/res/Starting-Map.png");
 		RenderLayer layer = new RenderLayer("tiles");
 		for(int i = 0; i < tiles.length; i++) {
@@ -157,6 +157,7 @@ public class GameSim {
 		    		  tiles[i][j] = new Tile(i,j);
 		    	  }
 		      }
+		      
 		      for (int y = 0; y < img.getHeight(); y++) {
 		         for (int x = 0; x < img.getWidth(); x++) {
 		            //Retrieving contents of a pixel
@@ -168,14 +169,12 @@ public class GameSim {
 		            int green = color.getGreen();
 		            int blue = color.getBlue();
 		            if(red==255&&green==0&&blue==0) {
-		            	tiles[x][y].setContent(8);
+		            	tiles[x][y].setContent(2);
 		            }
 		            else if(red==255&&green==255) {
-		            	tiles[x][y].setContent(6);
 		            	activeConsumers.add((Consumer)getBuilding(6,x,y));
 		            }
 		            else if(blue==255) {
-		            	tiles[x][y].setContent(1);
 		            	activePowerPlants.add((PowerPlant)getBuilding(1,x,y));
 		            }
 		         }

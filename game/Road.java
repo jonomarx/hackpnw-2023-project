@@ -7,7 +7,9 @@ public class Road extends Building {
 
     public Road(int xIn, int yIn, boolean horizontalIn)
     {
-        super(x, y, 1, 1, 0, 0, "Road", 0, 0, 8);
+        super(x, y, 1, 1, 0, 0, "Road", 0, 0, 8, new int[][][] {
+        	{{1}}
+        });
         x = xIn;
         y = yIn;
         horizontal = horizontalIn;
