@@ -22,7 +22,7 @@ public class Renderer extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		for(RenderLayer layer : layers) {
-			layer.paint(g, x, y);
+			layer.paint(g, x/30*30, y/30*30);
 		}
 	}
 	
