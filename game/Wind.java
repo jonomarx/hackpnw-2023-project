@@ -68,6 +68,7 @@ public class Wind extends PowerPlant {
     }
     
     public void update(int tick) {
-    	powerflow = noise(tick,0,0);
+    	powerflow = noise(tick*10,0,0);
+    	System.out.println(noise(0.01*tick,1,1));
     }
 }
