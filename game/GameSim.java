@@ -46,14 +46,14 @@ public class GameSim {
 		                                                      //polution,
 		                                                            //powerflow
 		                                                           //    width heihgt
-		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 1.7, 100, 2, 2, new int[] {1,1}));
-		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 9, 4, new int[] {1,1}));
-		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100, -50, 2, 1725, 1, 1, new int[] {1,1}));
-		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 19, 19, new int[] {1,1}));
-		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
-		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, -33.6473755047, 4, 4, new int[] {1,1}));
-		buildings.put("Office", new BuildingInfo("Office", 100, -50, 0, -20.5479452055, 2, 2, new int[] {1,1}));
-		buildings.put("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
+		buildings.put("Coal", new BuildingInfo("Coal", 100000, -50, 1.7, 100, 2, 2, new int[] {1,1}));
+		buildings.put("Nuclear", new BuildingInfo("Nuclear", 600000, -50, 0, 532, 9, 4, new int[] {1,1}));
+		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100000, -50, 2, 1725, 1, 1, new int[] {1,1}));
+		buildings.put("Wind", new BuildingInfo("Wind", 100000, -50, 0, 40, 19, 19, new int[] {1,1}));
+		buildings.put("Solar", new BuildingInfo("Solar", 100000, -50, 0, 19, 1, 1, new int[] {1,1}));
+		buildings.put("Residental", new BuildingInfo("Residental", 100000, -50, 0, -33.6473755047, 4, 4, new int[] {1,1}));
+		buildings.put("Office", new BuildingInfo("Office", 100000, -50, 0, -20.5479452055, 2, 2, new int[] {1,1}));
+		buildings.put("Road", new BuildingInfo("Road", 1000, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
 	// statuses of the stuff -Tien
 	
