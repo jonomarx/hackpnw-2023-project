@@ -44,12 +44,14 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
-		Building building = new Coal(0, 0);
+		PowerPlant building = new Coal(0, 0);
+		activePowerPlants.add(building);
 	}
 	
 	public static void update() {
 		double energyTotal = 0;
 		double income = 0;
+		double energyProduction = 0;
 		for(Consumer c : activeConsumers) {
 			energyTotal += c.powerflow();
 			emissions += c.pollution();
@@ -94,6 +96,7 @@ public class GameSim {
 					break;
 			}
 		}
+		energyProduction = baselinePower + renewablePower;
 		double powerNeeds = energyTotal;
 		double pWithoutPower = 0;
 		energyTotal -= baselinePower;
@@ -111,10 +114,12 @@ public class GameSim {
 			double gasCost = pOfGasRequired * gasPrice;
 			expenses += gasCost;
 			emissions += pOfGasRequired * gasEmissions;
+			energyProduction += pOfGasRequired * gasPowerCapacity;
 		}
 		double moneys = income - expenses;
 		
 		money += moneys;
+		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 	}
 	
 	public static SpriteSheet getSpriteSheet() {
