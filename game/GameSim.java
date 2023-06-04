@@ -34,7 +34,7 @@ public class GameSim {
 	private static int attemptx = 5*Main.SCALE;
 	private static int attempty = 5*Main.SCALE;
 	private static int selectState = 0; // select state, 0: none, 1: build, 2: delete
-	
+	private static double energyPrice=5;//dummy val
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
 	
@@ -86,7 +86,6 @@ public class GameSim {
 		for(Consumer c : activeConsumers) {
 			energyTotal += c.powerflow();
 			emissions += c.pollution();
-			income += c.cashFlow();
 		}
 		// energy priority: nuclear+coal, wind+solar, gas
 		
@@ -148,6 +147,10 @@ public class GameSim {
 			emissions += pOfGasRequired * gasEmissions;
 			energyProduction += pOfGasRequired * gasPowerCapacity;
 		}
+		//energyprice is a dummy val
+		energyTotal = Math.max(0,energyTotal);
+		income = energyPrice*powerNeeds - energyPrice*energyTotal;
+		System.out.println("Income: " + income + "PowerNeeds: " + powerNeeds + "EnergyTotal: " + energyTotal);
 		double moneys = income - expenses;
 		money += moneys;
 		
@@ -266,6 +269,7 @@ public class GameSim {
 		}
 		return false;
 	}
+	
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
