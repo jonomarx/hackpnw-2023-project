@@ -5,5 +5,5 @@ Oil 3
 Wind 4
 Solar 5
 Residential 6
-Office 6
-Road 7
+Office 7
+Road 8

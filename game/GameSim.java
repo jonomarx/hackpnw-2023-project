@@ -21,19 +21,19 @@ public class GameSim {
 	private static double budget = 0;
 	private static SpriteSheet spriteSheet;
 	
-	private static ArrayList<Consumer> activeConsumers;
-	private static ArrayList<PowerPlant> activePowerPlants;
+	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
+	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
-		//buildings.add("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
-		//buildings.add("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
-		//buildings.add("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
-		//buildings.add("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		//buildings.add("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		//buildings.add("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
+		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
+		buildings.put("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
+		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
+		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
+		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		buildings.put("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		buildings.put("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
 	// statuses of the stuff -Tien
 	
@@ -47,11 +47,14 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
+		PowerPlant building = new Coal(0, 0);
+		activePowerPlants.add(building);
 	}
 	
 	public static void update() {
 		double energyTotal = 0;
 		double income = 0;
+		double energyProduction = 0;
 		for(Consumer c : activeConsumers) {
 			energyTotal += c.powerflow();
 			emissions += c.pollution();
@@ -66,35 +69,37 @@ public class GameSim {
 		double gasEmissions = 0;
 		double gasPrice = 0;
 		double expenses = 0;
-		for(PowerPlant p : activePowerPlants) {
-			switch(p.name()) {
+		for(PowerPlant pp : activePowerPlants) {
+			BuildingInfo p = buildings.get(pp.name());
+			switch(p.name) {
 				case "Coal":
-					baselinePower += p.powerflow();
-					expenses -= p.cashFlow();
-					emissions += p.pollution();
+					baselinePower += p.powerflow;
+					expenses -= p.cashFlow;
+					emissions += p.pollution;
 					break;
 				case "Nuclear":
-					baselinePower += p.powerflow();
-					expenses -= p.cashFlow();
-					emissions += p.pollution();
+					baselinePower += p.powerflow;
+					expenses -= p.cashFlow;
+					emissions += p.pollution;
 					break;
 				case "Wind":
-					renewablePower += p.powerflow();
-					expenses -= p.cashFlow(); // should be 0 usually
-					emissions += p.pollution(); // should be 0 usually
+					renewablePower += p.powerflow;
+					expenses -= p.cashFlow; // should be 0 usually
+					emissions += p.pollution; // should be 0 usually
 					break;
 				case "Solar":
-					renewablePower += p.powerflow();
-					expenses -= p.cashFlow(); // should be 0 usually
-					emissions += p.pollution(); // should be 0 usually
+					renewablePower += p.powerflow;
+					expenses -= p.cashFlow; // should be 0 usually
+					emissions += p.pollution; // should be 0 usually
 					break;
 				case "Oil":
-					gasPowerCapacity += p.powerflow();
-					gasPrice -= p.cashFlow(); // gas price is the cost of the all the gas
-					gasEmissions += p.pollution(); // total emissions assuming full power
+					gasPowerCapacity += p.powerflow;
+					gasPrice -= p.cashFlow; // gas price is the cost of the all the gas
+					gasEmissions += p.pollution; // total emissions assuming full power
 					break;
 			}
 		}
+		energyProduction = baselinePower + renewablePower;
 		double powerNeeds = energyTotal;
 		double pWithoutPower = 0;
 		energyTotal -= baselinePower;
@@ -112,8 +117,12 @@ public class GameSim {
 			double gasCost = pOfGasRequired * gasPrice;
 			expenses += gasCost;
 			emissions += pOfGasRequired * gasEmissions;
+			energyProduction += pOfGasRequired * gasPowerCapacity;
 		}
 		double moneys = income - expenses;
+		
+		money += moneys;
+		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 	}
 	private Building getBuilding(int id, int x, int y) {
 		switch(id) {
@@ -151,6 +160,20 @@ public class GameSim {
 	}
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
+	}
+	
+	public static boolean canPlace(String buildingType, int x, int y) {
+		BuildingInfo info = buildings.get(buildingType);
+		int xSize = info.width;
+		int ySize = info.height;
+		for(int i = 0; i < xSize; i++) {
+			for(int j = 0; j < ySize; j++) {
+				if(checkIfOccupied(i+x, j+y)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	public static boolean checkIfOccupied(int x, int y) {
