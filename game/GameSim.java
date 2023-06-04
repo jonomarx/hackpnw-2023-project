@@ -20,6 +20,8 @@ public class GameSim {
 	private static int tick = 0;
 	private static double budget = 0;
 	private static SpriteSheet spriteSheet;
+	private static HappinessMeter hp;
+	private static double happiness = 100;
 	
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
@@ -47,6 +49,11 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
+		
+		hp = new HappinessMeter();
+		RenderLayer layer2 = new RenderLayer("ui");
+		layer2.addObject(hp);
+		Main.addRenderLayer(layer2);
 	}
 	
 	public static void update() {
@@ -119,6 +126,10 @@ public class GameSim {
 		}
 		double moneys = income - expenses;
 		money += moneys;
+		
+		happiness -= 0.5;
+		hp.setHappiness(happiness);
+		
 		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 		tick++;
 	}
