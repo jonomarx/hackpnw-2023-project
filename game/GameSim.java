@@ -1,5 +1,8 @@
 package game;
-
+import java.io.File;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,7 +115,40 @@ public class GameSim {
 		}
 		double moneys = income - expenses;
 	}
-	
+	private Building getBuilding(int id, int x, int y) {
+		switch(id) {
+		case 1:
+			return new Coal(x,y);
+		
+		case 2:
+			return new Nuclear(x,y);
+			
+	}
+	private void initTiles(String fileName) {
+		try {
+			File file= new File(fileName);
+		      BufferedImage img = ImageIO.read(file);
+		      for (int y = 0; y < img.getHeight(); y++) {
+		         for (int x = 0; x < img.getWidth(); x++) {
+		            //Retrieving contents of a pixel
+		            int pixel = img.getRGB(x,y);
+		            //Creating a Color object from pixel value
+		            Color color = new Color(pixel, true);
+		            //Retrieving the R G B values
+		            int red = color.getRed();
+		            int green = color.getGreen();
+		            int blue = color.getBlue();
+		            if(red==255&&green==0&&blue==0) {
+		            	
+		            }
+		         }
+		      }
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			System.exit(10);
+		}
+	}
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
