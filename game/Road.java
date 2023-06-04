@@ -1,7 +1,12 @@
 package game;
 
 public class Road {
-    
-    public Road(int x, int y)
-    {}
+    private static int x;
+    private static int y;
+
+    public Road(int xIn, int yIn)
+    {
+        x = xIn;
+        y = yIn;
+    }
 }
