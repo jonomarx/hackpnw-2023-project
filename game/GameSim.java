@@ -38,6 +38,8 @@ public class GameSim {
 	private static double energyPrice=5;//dummy val
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
+	//private static CsvParser coalPrices = new CsvParser("/res/");
+	private static CsvParser nuclearPrices = new CsvParser("/res/nuclear2.csv");
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
@@ -51,7 +53,7 @@ public class GameSim {
 		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100000, -50, 2, 1725, 1, 1, new int[] {1,1}));
 		buildings.put("Wind", new BuildingInfo("Wind", 100000, -50, 0, 40, 19, 19, new int[] {1,1}));
 		buildings.put("Solar", new BuildingInfo("Solar", 100000, -50, 0, 19, 1, 1, new int[] {1,1}));
-		buildings.put("Residental", new BuildingInfo("Residental", 100000, -50, 0, -33.6473755047, 4, 4, new int[] {1,1}));
+		buildings.put("Residental", new BuildingInfo("Residental", 100000, -50, 0, -33.6473755047/6/1000*38333, 4, 4, new int[] {1,1}));
 		buildings.put("Office", new BuildingInfo("Office", 100000, -50, 0, -20.5479452055, 2, 2, new int[] {1,1}));
 		buildings.put("Road", new BuildingInfo("Road", 1000, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
@@ -148,13 +150,18 @@ public class GameSim {
 		energyTotal -= renewablePower;
 		if(energyTotal > 0) {
 			double pOfGasRequired = energyTotal/gasPowerCapacity;
-			if(pOfGasRequired >= 1) {
+			if(gasPowerCapacity == 0 || pOfGasRequired >= 1) {
 				double amountOver = gasPowerCapacity * (1-pOfGasRequired);
 				pWithoutPower = amountOver/powerNeeds;
 				pOfGasRequired = 1;
-			} else {
+				if(gasPowerCapacity == 0) {
+					pWithoutPower = energyTotal/powerNeeds;
+				}
+			} else if(pOfGasRequired < 1){
 				energyTotal = 0;
 				pWithoutPower = 0;
+			} else {
+				
 			}
 			double gasCost = pOfGasRequired * gasPrice;
 			expenses += gasCost;
@@ -240,13 +247,15 @@ public class GameSim {
 			attemptBuildBuilding = buildings.get("Road");
 		}
 
-		
-		happiness -= 0.5;
+		happiness = (1-pWithoutPower)*100;
 		hp.setHappiness(happiness);
 		cal.add(GregorianCalendar.HOUR, 4);
 		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR_OF_DAY) + ":00");
 		moneyMeter.setMoney(money);
 		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
+		
+		buildings.get("Coal").cashFlow = -nuclearPrices.getValue(cal.get(GregorianCalendar.YEAR));
+		
 		tick++;
 	}
 	private static Building getBuilding(int id, int x, int y) {

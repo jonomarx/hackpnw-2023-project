@@ -86,7 +86,7 @@ public class Main {
 					drawer.moveY(-MOVEAMOUNT);
 				}
 			}
-			if(tick % 10 == 0) { // 6 ticks per second
+			if(tick % 5 == 0) { // 12 ticks per second
 				GameSim.update();
 			}
 			tick++;
