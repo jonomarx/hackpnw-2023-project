@@ -28,6 +28,7 @@ public class GameSim {
 	private static double happiness = 100;
 	private static GregorianCalendar cal;
 	private static DateAndTimeMeter dateMeter = new DateAndTimeMeter();
+	private static MoneyMeter moneyMeter = new MoneyMeter();
 	
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
@@ -60,8 +61,11 @@ public class GameSim {
 		RenderLayer layer2 = new RenderLayer("ui");
 		cal = new GregorianCalendar(2000, 1, 1, 0, 0);
 		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR) + ":00");
+		moneyMeter = new MoneyMeter();
+		moneyMeter.setMoney(money);
 		layer2.addObject(hp);
 		layer2.addObject(dateMeter);
+		layer2.addObject(moneyMeter);
 		Main.addRenderLayer(layer2);
 	}
 	
@@ -140,6 +144,7 @@ public class GameSim {
 		hp.setHappiness(happiness);
 		cal.add(GregorianCalendar.HOUR, 4);
 		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR_OF_DAY) + ":00");
+		moneyMeter.setMoney(money);
 		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 		tick++;
 	}
