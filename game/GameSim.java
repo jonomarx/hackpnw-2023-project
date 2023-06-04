@@ -252,7 +252,14 @@ public class GameSim {
 		return tiles;
 	}
 	
-	public boolean placeBuilding(String type) {
-		return false;
+	public boolean placeBuilding(int x, int y, int width, int height) {
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				if(tiles[i][j].getContent()==-1) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
