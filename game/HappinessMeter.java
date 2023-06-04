@@ -35,11 +35,11 @@ public class HappinessMeter implements Renderable {
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, (int) (Main.WIDTH/2.5), Main.HEIGHT/5);
+		g.fillRect(0, 40, (int) (Main.WIDTH/2.5)+20, Main.HEIGHT/5);
 		g.setColor(Color.BLACK);
-		g.drawRect(0, 0, (int) (Main.WIDTH/2.5), Main.HEIGHT/5);
-		g.drawRect(1, 1, (int) (Main.WIDTH/2.5)-1, Main.HEIGHT/5-1);
-		g.drawRect(2, 2, (int) (Main.WIDTH/2.5)-2, Main.HEIGHT/5-2);
+		g.drawRect(0, 40, (int) (Main.WIDTH/2.5)+20, Main.HEIGHT/5);
+		g.drawRect(1, 41, (int) (Main.WIDTH/2.5)+20-1, Main.HEIGHT/5-1);
+		g.drawRect(2, 42, (int) (Main.WIDTH/2.5)+20-2, Main.HEIGHT/5-2);
 		BufferedImage image;
 		if(happiness >= 80) {
 			image = faces[0];
@@ -53,8 +53,9 @@ public class HappinessMeter implements Renderable {
 			image = faces[4];
 		}
 		String hp = String.format("%.2f", happiness);
-		g.drawImage(image, 1, 1, (int) (Main.WIDTH/2.5)/2, Main.HEIGHT/5, null);
-		g.drawString("Happiness: " + hp + "\n" + factors, (int) (Main.WIDTH/3.5)/2 + 30, 15);
+		g.drawImage(image, 1, 41, (int) (Main.WIDTH/2.5)/2, Main.HEIGHT/5, null);
+		g.setFont(new Font("Sans", Font.PLAIN, 12));
+		g.drawString("Happiness: " + hp + "%\n" + factors, (int) (Main.WIDTH/3.5)/2 + 30, 62);
 	}
 
 }

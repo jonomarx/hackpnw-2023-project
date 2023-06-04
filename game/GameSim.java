@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import core.Main;
@@ -20,8 +23,11 @@ public class GameSim {
 	private static int tick = 0;
 	private static double budget = 0;
 	private static SpriteSheet spriteSheet;
+	
 	private static HappinessMeter hp;
 	private static double happiness = 100;
+	private static GregorianCalendar cal;
+	private static DateAndTimeMeter dateMeter = new DateAndTimeMeter();
 	
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
@@ -52,7 +58,10 @@ public class GameSim {
 		
 		hp = new HappinessMeter();
 		RenderLayer layer2 = new RenderLayer("ui");
+		cal = new GregorianCalendar(2000, 1, 1, 0, 0);
+		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR) + ":00");
 		layer2.addObject(hp);
+		layer2.addObject(dateMeter);
 		Main.addRenderLayer(layer2);
 	}
 	
@@ -129,7 +138,8 @@ public class GameSim {
 		
 		happiness -= 0.5;
 		hp.setHappiness(happiness);
-		
+		cal.add(GregorianCalendar.HOUR, 4);
+		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR_OF_DAY) + ":00");
 		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 		tick++;
 	}
