@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -23,6 +24,8 @@ public class Main {
 	public static final int TICKSPERDAY = 6; // 4 hours
 	private static Renderer drawer;
 	private static final int MOVEAMOUNT = 5;
+	
+	private static HashMap<Integer, Boolean> keys = new HashMap<>();
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		JFrame frame = new JFrame();
@@ -51,43 +54,15 @@ public class Main {
 		GameSim.init();
 		
 		frame.setVisible(true);
-		
-		boolean[] keys = new boolean[4];
 		frame.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				switch(arg0.getKeyChar()) {
-					case 'w':
-						keys[0] = true;
-						break;
-					case 'a':
-						keys[1] = true;
-						break;
-					case 's':
-						keys[2] = true;
-						break;
-					case 'd':
-						keys[3] = true;
-						break;
-				}
+				keys.put(arg0.getKeyCode(), true);
 			}
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				switch(arg0.getKeyChar()) {
-					case 'w':
-						keys[0] = false;
-						break;
-					case 'a':
-						keys[1] = false;
-						break;
-					case 's':
-						keys[2] = false;
-						break;
-					case 'd':
-						keys[3] = false;
-						break;
-				}
+				keys.put(arg0.getKeyCode(), false);
 			}
 
 			@Override
@@ -98,16 +73,16 @@ public class Main {
 		while(true) {
 			frame.repaint();
 			if(tick % 3 == 0) {
-				if(keys[0]) {
+				if(Boolean.TRUE.equals(keys.get(KeyEvent.VK_W))) {
 					drawer.moveX(MOVEAMOUNT);
 				}
-				if(keys[1]) {
+				if(Boolean.TRUE.equals(keys.get(KeyEvent.VK_A))) {
 					drawer.moveY(MOVEAMOUNT);
 				}
-				if(keys[2]) {
+				if(Boolean.TRUE.equals(keys.get(KeyEvent.VK_S))) {
 					drawer.moveX(-MOVEAMOUNT);
 				}
-				if(keys[3]) {
+				if(Boolean.TRUE.equals(keys.get(KeyEvent.VK_D))) {
 					drawer.moveY(-MOVEAMOUNT);
 				}
 			}
@@ -121,6 +96,10 @@ public class Main {
 	
 	public static void addRenderLayer(RenderLayer layer) {
 		drawer.addRenderLayer(layer);
+	}
+
+	public static boolean getKey(int key) {
+		return Boolean.TRUE.equals(keys.get(key));
 	}
 }
 

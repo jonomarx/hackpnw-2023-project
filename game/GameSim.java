@@ -1,6 +1,7 @@
 package game;
 import java.io.File;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -78,6 +79,9 @@ public class GameSim {
 		layer2.addObject(moneyMeter);
 		layer2.addObject(selector);
 		Main.addRenderLayer(layer2);
+		
+		attemptBuildBuilding = buildings.get("Nuclear");
+		selectState = 1;
 	}
 	
 	public static void update() {
@@ -155,14 +159,28 @@ public class GameSim {
 		money += moneys;
 		
 		switch(selectState) {
+			case 0:
+				selector.setColor(null);
+				break;
 			case 1:
 				selector.setX(attemptx);
 				selector.setY(attempty);
 				selector.setWidth(attemptBuildBuilding.width*Main.SCALE);
 				selector.setHeight(attemptBuildBuilding.height*Main.SCALE);
-				selector.setColor(placeBuilding(selector.getX()/Main.SCALE, selector.getY()/Main.SCALE, attemptBuildBuilding.width, attemptBuildBuilding.height) ? Color.GREEN : Color.RED);
-				//System.out.println(selector.getX()/30 + " " + selector.getY()/30);
-				//System.out.println(selector.getX()/Main.SCALE + selector.getY()/Main.SCALE);
+				int x = selector.getX()/Main.SCALE;
+				int y = selector.getY()/Main.SCALE;
+				boolean canPlace = placeBuilding(x, y, attemptBuildBuilding.width, attemptBuildBuilding.height);
+				selector.setColor(canPlace ? Color.GREEN : Color.RED);
+				if(Main.getKey(KeyEvent.VK_ENTER) && canPlace) {
+					selectState = 0;
+					Building building = getBuilding(attemptBuildBuilding.name, x, y);
+					if(building instanceof PowerPlant) {
+						activePowerPlants.add((PowerPlant)building);
+					}
+					if(building instanceof Consumer) {
+						activeConsumers.add((Consumer)building);
+					}
+				}
 				break;
 			case 2:
 				selector.setX(5*Main.SCALE);
@@ -170,9 +188,48 @@ public class GameSim {
 				selector.setWidth(Main.SCALE);
 				selector.setHeight(Main.SCALE);
 				selector.setColor(Color.RED);
+				x = selector.getX()/Main.SCALE;
+				y = selector.getY()/Main.SCALE;
+				if(Main.getKey(KeyEvent.VK_ENTER)) {
+					selectState = 0;
+					deconstructTile(tiles[x][y]);
+				}
 		}
-		attemptBuildBuilding = buildings.get("Nuclear");
-		selectState = 1;
+		
+		if(Main.getKey(KeyEvent.VK_B)) {
+			selectState = 1;
+		}
+		if(Main.getKey(KeyEvent.VK_R)) {
+			selectState = 2;
+		}
+		if(Main.getKey(KeyEvent.VK_ESCAPE)) {
+			selectState = 0;
+		}
+		if(Main.getKey(KeyEvent.VK_1)) {
+			attemptBuildBuilding = buildings.get("Coal");
+		}
+		if(Main.getKey(KeyEvent.VK_2)) {
+			attemptBuildBuilding = buildings.get("Nuclear");
+		}
+		if(Main.getKey(KeyEvent.VK_3)) {
+			attemptBuildBuilding = buildings.get("Natural Gas");
+		}
+		if(Main.getKey(KeyEvent.VK_4)) {
+			attemptBuildBuilding = buildings.get("Wind");
+		}
+		if(Main.getKey(KeyEvent.VK_5)) {
+			attemptBuildBuilding = buildings.get("Solar");
+		}
+		if(Main.getKey(KeyEvent.VK_6)) {
+			attemptBuildBuilding = buildings.get("Residental");
+		}
+		if(Main.getKey(KeyEvent.VK_7)) {
+			attemptBuildBuilding = buildings.get("Office");
+		}
+		if(Main.getKey(KeyEvent.VK_8)) {
+			attemptBuildBuilding = buildings.get("Road");
+		}
+
 		
 		happiness -= 0.5;
 		hp.setHappiness(happiness);
@@ -201,6 +258,29 @@ public class GameSim {
 		case 7:
 			return new Office(x,y);
 		case 8:
+			return new Road(x,y,true);
+		}
+		return null;
+	}
+	private static Building getBuilding(String id, int x, int y) {
+		switch(id) {
+		case "Coal":
+			return new Coal(x,y);
+		
+		case "Nuclear":
+			return new Nuclear(x,y);
+		case "Natural Gas":
+			//new name natural gas
+			return new Oil(x,y);
+		case "Wind":
+			return new Wind(x,y);
+		case "Solar":
+			return new Solar(x,y);
+		case "Residental":
+			return new Residental(x,y);
+		case "Office":
+			return new Office(x,y);
+		case "Road":
 			return new Road(x,y,true);
 		}
 		return null;
@@ -246,6 +326,32 @@ public class GameSim {
 			System.exit(10);
 		}
 	}
+	private static Building getBuildingAtTile(Tile t) {
+		boolean found=false;
+		for(int k = 0; k < activeConsumers.size(); k++) {
+			Consumer c = activeConsumers.get(k);
+			for(int i = c.x(); i <c.x()+c.width(); i++) {
+				for(int j = c.y(); j <c.y()+c.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						return c;
+					}
+				}
+			}
+		}
+		for(int k = 0; k < activePowerPlants.size(); k++) {
+			PowerPlant p = activePowerPlants.get(k);
+			for(int i = p.x(); i <p.x()+p.width(); i++) {
+				for(int j = p.y(); j <p.y()+p.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						return p;
+					}
+				}
+			}
+		}
+		return null;
+	}
 	private static boolean deconstructTile(Tile t) {
 		boolean found=false;
 		for(int k = 0; k < activeConsumers.size(); k++) {
@@ -255,6 +361,7 @@ public class GameSim {
 					
 					if(i==t.getX()&&j==t.getY()) {
 						c.deconstruct();
+						activeConsumers.remove(c);
 						return true;
 					}
 				}
@@ -267,6 +374,7 @@ public class GameSim {
 					
 					if(i==t.getX()&&j==t.getY()) {
 						p.deconstruct();
+						activePowerPlants.remove(p);
 						return true;
 					}
 				}
