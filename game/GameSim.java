@@ -40,6 +40,11 @@ public class GameSim {
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
+		//                                       name,price,
+		                                               // cashflow,
+		                                                      //polution,
+		                                                            //powerflow
+		                                                           //    width heihgt
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 1.7, 100, 2, 2, new int[] {1,1}));
 		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 9, 4, new int[] {1,1}));
 		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100, -50, 2, 1725, 1, 1, new int[] {1,1}));
@@ -81,11 +86,14 @@ public class GameSim {
 	}
 	
 	public static void update() {
+		
+		//emmisions per tick
+		
 		double energyTotal = 0;
 		double income = 0;
 		for(Consumer c : activeConsumers) {
-			energyTotal += c.powerflow();
-			emissions += c.pollution();
+			energyTotal += buildings.get(c.name()).powerflow;
+			emissions += buildings.get(c.name()).pollution;
 		}
 		// energy priority: nuclear+coal, wind+solar, gas
 		
@@ -128,6 +136,8 @@ public class GameSim {
 			}
 		}
 		double powerNeeds = energyTotal;
+		powerNeeds = Math.abs(energyTotal);
+		energyTotal =Math.abs(energyTotal);
 		double pWithoutPower = 0;
 		double energyProduction = baselinePower + renewablePower;
 		energyTotal -= baselinePower;
@@ -290,6 +300,9 @@ public class GameSim {
 	public static boolean placeBuilding(int x, int y, int width, int height) {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
+				if(i >= tiles.length || i<0|| j >= tiles[0].length || j <0) {
+					return false;
+				}
 				if(tiles[i][j].getContent() >= 0) {
 					return false;
 				}
