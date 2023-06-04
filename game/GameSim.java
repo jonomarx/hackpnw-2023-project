@@ -11,9 +11,9 @@ import core.Main;
 import core.RenderLayer;
 
 public class GameSim {
-	private static final int tileWidth = 4;
-	private static final int tileHeight = 4;
-	private static final Tile[][] tiles = new Tile[tileWidth][tileHeight];
+	private static int tileWidth;
+	private static int tileHeight;
+	private static Tile[][] tiles;
 	
 	private static double emissions = 0;
 	private static double money = 20000;
@@ -21,8 +21,8 @@ public class GameSim {
 	private static double budget = 0;
 	private static SpriteSheet spriteSheet;
 	
-	private static ArrayList<Consumer> activeConsumers;
-	private static ArrayList<PowerPlant> activePowerPlants;
+	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
+	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
@@ -48,8 +48,6 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
-		PowerPlant building = new Wind(0, 0, 2, 2, 0);
-		activePowerPlants.add(building);
 	}
 	
 	public static void update() {
@@ -146,12 +144,15 @@ public class GameSim {
 		case 8:
 			return new Road(x,y,true);
 		}
-			
+		return null;
 	}
 	private static void initTiles(String fileName) {
 		try {
 			
 		      BufferedImage img = ImageIO.read(GameSim.class.getResourceAsStream(fileName));
+		      tileWidth = img.getWidth();
+		      tileHeight = img.getHeight();
+		      tiles = new Tile[tileWidth][tileHeight];
 		      for (int y = 0; y < img.getHeight(); y++) {
 		         for (int x = 0; x < img.getWidth(); x++) {
 		            //Retrieving contents of a pixel
@@ -169,10 +170,12 @@ public class GameSim {
 		            else if(red==255&&green==255) {
 		            	tiles[x][y] = new Tile(x,y);
 		            	tiles[x][y].setContent(6);
+		            	activeConsumers.add((Consumer)getBuilding(6,x,y));
 		            }
 		            else if(blue==255) {
 		            	tiles[x][y] = new Tile(x,y);
 		            	tiles[x][y].setContent(1);
+		            	activePowerPlants.add((PowerPlant)getBuilding(1,x,y));
 		            }
 		            else {
 		            	tiles[x][y] = new Tile(x,y);
@@ -182,7 +185,8 @@ public class GameSim {
 		      }
 		}
 		catch(Exception e) {
-			System.out.println(e);
+			
+			e.printStackTrace();
 			System.exit(10);
 		}
 	}
