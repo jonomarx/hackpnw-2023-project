@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import core.Main;
 import core.Renderable;
 
 public class Selector implements Renderable {
@@ -38,12 +39,22 @@ public class Selector implements Renderable {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public int getX() {
+		return selX;
+	}
+	
+	public int getY() {
+		return selY;
+	}
 
 	@Override
 	public void render(Graphics g, double xoffset, double yoffset) {
 		if(color == null) return;
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
+		selX = (int)-yoffset + 5*30;
+		selY = (int)-xoffset + 5*30;
 	}
 
 }
