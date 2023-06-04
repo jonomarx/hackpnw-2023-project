@@ -194,6 +194,7 @@ public class GameSim {
 		            int red = color.getRed();
 		            int green = color.getGreen();
 		            int blue = color.getBlue();
+		            //error, only assigns top left tile
 		            if(red==255&&green==0&&blue==0) {
 		            	tiles[x][y].setContent(2);
 		            }
