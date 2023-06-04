@@ -2,8 +2,8 @@ package game;
 
 public class Wind extends PowerPlant {
     
-    private static final int WIDTH = 2;
-	private static final int LENGTH = 2;
+    private static final int WIDTH = 19;
+	private static final int LENGTH = 19;
     private static final int pollution = 0;
 	
 	private int cost;
@@ -57,12 +57,18 @@ public class Wind extends PowerPlant {
 
     
      
-    public Wind (int posx, int posy, int width, int height, int cost)
+    public Wind (int posx, int posy)
     {        
+<<<<<<< HEAD
+        super(posx, posy,19, 19
+        		, cost, 0, "Wind", 0, 2);
+=======
         super(posx, posy, width, height, cost, 0, "Wind", 0, 2, 4);
+>>>>>>> 5d9694746f630542605f1c8e99784564a071cf04
     }
     
     public void update(int tick) {
-    	powerflow = noise(tick,0,0);
+    	powerflow = noise(tick*10,0,0);
+    	System.out.println(noise(0.01*tick,1,1));
     }
 }

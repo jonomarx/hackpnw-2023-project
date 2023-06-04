@@ -1,5 +1,8 @@
 package game;
-
+import java.io.File;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,19 +21,19 @@ public class GameSim {
 	private static double budget = 0;
 	private static SpriteSheet spriteSheet;
 	
-	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
-	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
+	private static ArrayList<Consumer> activeConsumers;
+	private static ArrayList<PowerPlant> activePowerPlants;
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
-		buildings.put("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
-		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
-		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
-		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		buildings.put("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		buildings.put("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
+		//buildings.add("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
+		//buildings.add("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
+		//buildings.add("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
+		//buildings.add("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
+		//buildings.add("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		//buildings.add("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		//buildings.add("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
 	// statuses of the stuff -Tien
 	
@@ -44,7 +47,11 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
-		Building building = new Coal(0, 0);
+<<<<<<< Updated upstream
+=======
+		PowerPlant building = new Wind(0, 0, 2, 2, 0);
+		activePowerPlants.add(building);
+>>>>>>> Stashed changes
 	}
 	
 	public static void update() {
@@ -64,33 +71,39 @@ public class GameSim {
 		double gasEmissions = 0;
 		double gasPrice = 0;
 		double expenses = 0;
+<<<<<<< Updated upstream
+		for(PowerPlant p : activePowerPlants) {
+			switch(p.name()) {
+=======
 		for(PowerPlant pp : activePowerPlants) {
+			pp.update(tick);
 			BuildingInfo p = buildings.get(pp.name());
 			switch(p.name) {
+>>>>>>> Stashed changes
 				case "Coal":
-					baselinePower += p.powerflow;
-					expenses -= p.cashFlow;
-					emissions += p.pollution;
+					baselinePower += p.powerflow();
+					expenses -= p.cashFlow();
+					emissions += p.pollution();
 					break;
 				case "Nuclear":
-					baselinePower += p.powerflow;
-					expenses -= p.cashFlow;
-					emissions += p.pollution;
+					baselinePower += p.powerflow();
+					expenses -= p.cashFlow();
+					emissions += p.pollution();
 					break;
 				case "Wind":
-					renewablePower += p.powerflow;
-					expenses -= p.cashFlow; // should be 0 usually
-					emissions += p.pollution; // should be 0 usually
+					renewablePower += p.powerflow();
+					expenses -= p.cashFlow(); // should be 0 usually
+					emissions += p.pollution(); // should be 0 usually
 					break;
 				case "Solar":
-					renewablePower += p.powerflow;
-					expenses -= p.cashFlow; // should be 0 usually
-					emissions += p.pollution; // should be 0 usually
+					renewablePower += p.powerflow();
+					expenses -= p.cashFlow(); // should be 0 usually
+					emissions += p.pollution(); // should be 0 usually
 					break;
 				case "Oil":
-					gasPowerCapacity += p.powerflow;
-					gasPrice -= p.cashFlow; // gas price is the cost of the all the gas
-					gasEmissions += p.pollution; // total emissions assuming full power
+					gasPowerCapacity += p.powerflow();
+					gasPrice -= p.cashFlow(); // gas price is the cost of the all the gas
+					gasEmissions += p.pollution(); // total emissions assuming full power
 					break;
 			}
 		}
@@ -113,26 +126,77 @@ public class GameSim {
 			emissions += pOfGasRequired * gasEmissions;
 		}
 		double moneys = income - expenses;
+<<<<<<< Updated upstream
+=======
 		
 		money += moneys;
+		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
+		tick++;
+>>>>>>> Stashed changes
 	}
-	
+	private Building getBuilding(int id, int x, int y) {
+		switch(id) {
+		case 1:
+			return new Coal(x,y);
+		
+		case 2:
+			return new Nuclear(x,y);
+		case 3:
+			//new name natural gas
+			return new Oil(x,y);
+		case 4:
+			return new Wind(x,y);
+		case 5:
+			return new Solar(x,y);
+		case 6:
+			return new Residental(x,y);
+		case 7:
+			return new Office(x,y);
+		case 8:
+			return new Road(x,y);
+		}
+			
+	}
+	private void initTiles(String fileName) {
+		try {
+			File file= new File(fileName);
+		      BufferedImage img = ImageIO.read(file);
+		      for (int y = 0; y < img.getHeight(); y++) {
+		         for (int x = 0; x < img.getWidth(); x++) {
+		            //Retrieving contents of a pixel
+		            int pixel = img.getRGB(x,y);
+		            //Creating a Color object from pixel value
+		            Color color = new Color(pixel, true);
+		            //Retrieving the R G B values
+		            int red = color.getRed();
+		            int green = color.getGreen();
+		            int blue = color.getBlue();
+		            if(red==255&&green==0&&blue==0) {
+		            	tiles[x][y]= new Tile(x,y);
+		            	tiles[x][y].setContent(8);
+		            }
+		            else if(red==255&&green==255) {
+		            	tiles[x][y] = new Tile(x,y);
+		            	tiles[x][y].setContent(6);
+		            }
+		            else if(blue==255) {
+		            	tiles[x][y] = new Tile(x,y);
+		            	tiles[x][y].setContent(1);
+		            }
+		            else {
+		            	tiles[x][y] = new Tile(x,y);
+		            	tiles[x][y].setContent(-1);
+		            }
+		         }
+		      }
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			System.exit(10);
+		}
+	}
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
-	}
-	
-	public static boolean canPlace(String buildingType, int x, int y) {
-		BuildingInfo info = buildings.get(buildingType);
-		int xSize = info.width;
-		int ySize = info.height;
-		for(int i = 0; i < xSize; i++) {
-			for(int j = 0; j < ySize; j++) {
-				if(checkIfOccupied(i+x, j+y)) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 	
 	public static boolean checkIfOccupied(int x, int y) {

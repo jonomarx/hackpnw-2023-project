@@ -10,9 +10,10 @@ public class Oil extends PowerPlant {
 	private static int cashflow = -20;
 	
 	//coal constructor
-	public Oil (int posx, int posy, int id) {
-		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Oil", pollution, cashflow, 3);
-		// Check to see if the tile is aviliable.
+
+	public Oil (int posx, int posy) {
+		super(posx, posy, WIDTH, LENGTH, 60, cashflow, "Oil", 15, 75, 3);
+
 		x=posx;
 		y=posy;
 		
