@@ -40,6 +40,7 @@ public class GameSim {
 	public static void init() throws IOException {
 		spriteSheet = new SpriteSheet("/res/testsheet.png", 4);
 		RenderLayer layer = new RenderLayer("tiles");
+		initTiles("C:/Users/froze/Documents/GitHub/hackpnw-2023-project/res/Starting-Map.png");
 		for(int i = 0; i < tiles.length; i++) {
 			for(int j = 0; j < tiles[0].length; j++) {
 				tiles[i][j] = new Tile(i,j);
@@ -115,7 +116,7 @@ public class GameSim {
 		}
 		double moneys = income - expenses;
 	}
-	private Building getBuilding(int id, int x, int y) {
+	private static Building getBuilding(int id, int x, int y) {
 		switch(id) {
 		case 1:
 			return new Coal(x,y);
@@ -134,11 +135,11 @@ public class GameSim {
 		case 7:
 			return new Office(x,y);
 		case 8:
-			return new Road(x,y);
+			return new Road(x,y,true);
 		}
 			
 	}
-	private void initTiles(String fileName) {
+	private static void initTiles(String fileName) {
 		try {
 			File file= new File(fileName);
 		      BufferedImage img = ImageIO.read(file);
