@@ -12,7 +12,7 @@ public class Oil extends PowerPlant {
 	//coal constructor
 
 	public Oil (int posx, int posy) {
-		super(posx, posy, WIDTH, LENGTH, 60, cashflow, "Oil", 15, 75, 3);
+		super(posx, posy, WIDTH, LENGTH, 60, cashflow, "Natural Gas", 15, 75, 3, new int[][][] {{{40,41,42,43}}});
 
 		x=posx;
 		y=posy;

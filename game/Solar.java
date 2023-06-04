@@ -11,7 +11,7 @@ public class Solar extends PowerPlant{
 	
 	//coal constructor
 	public Solar (int posx, int posy) {
-		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Solar", pollution, 100, 5);
+		super(posx, posy, WIDTH, LENGTH, cost, cashflow, "Solar", pollution, 100, 5, new int[][][] {{{44}}});
 		// Check to see if the tile is aviliable.
 		x=posx;
 		y=posy;

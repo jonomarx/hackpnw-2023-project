@@ -1,5 +1,8 @@
 package game;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Wind extends PowerPlant {
     
     private static final int WIDTH = 19;
@@ -54,17 +57,49 @@ public class Wind extends PowerPlant {
      138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
      };
      static { for (int i=0; i < 256 ; i++) p[256+i] = p[i] = permutation[i]; }
-
-    
+     
+    private static int[] g() {
+    	int[] ar = {36,37,38,39};
+    	Random rnd = new Random();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+          int index = rnd.nextInt(i + 1);
+          // Simple swap
+          int a = ar[index];
+          ar[index] = ar[i];
+          ar[i] = a;
+        }
+        return ar;
+    }
+    private static int[][][] animFrames = {
+    		{{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),g(),{35}},
+    		{{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35},{35}},
+    };
      
     public Wind (int posx, int posy)
     {        
-        super(posx, posy,19, 19, -50, 0, "Wind", 0, 2, 4);
+        super(posx, posy,19, 19, -50, 0, "Wind", 0, 2, 4, animFrames);
 
     }
     
     public void update(int tick) {
-    	powerflow = noise(tick*10,0,0);
-    	System.out.println(noise(0.01*tick,1,1));
+    	
     }
 }

@@ -28,7 +28,7 @@ public class GameSim {
 	static {
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
 		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
-		buildings.put("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
+		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
 		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
 		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
 		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
