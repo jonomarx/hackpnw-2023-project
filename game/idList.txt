@@ -1,7 +1,7 @@
 List of ids for buildings, add here :)
 Coal 1
 Nuclear 2
-Oil 3
+natural gal 3
 Wind 4
 Solar 5
 Residential 6
