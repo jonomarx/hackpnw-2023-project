@@ -46,7 +46,7 @@ public class Main {
 		RenderLayer layer = new RenderLayer("background");
 		Background back = new Background("/res/test.png");
 		layer.addObject(back);
-		drawer.addRenderLayer(layer);
+		//drawer.addRenderLayer(layer);
 		
 		GameSim.init();
 		
