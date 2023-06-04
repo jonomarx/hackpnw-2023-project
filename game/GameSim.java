@@ -88,7 +88,7 @@ public class GameSim {
 		Main.addRenderLayer(layer2);
 		
 		attemptBuildBuilding = buildings.get("Nuclear");
-		selectState = 1;
+		selectState = 0;
 	}
 	
 	public static void update() {
