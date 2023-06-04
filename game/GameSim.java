@@ -48,11 +48,8 @@ public class GameSim {
 			}
 		}
 		Main.addRenderLayer(layer);
-<<<<<<< Updated upstream
-=======
 		PowerPlant building = new Wind(0, 0, 2, 2, 0);
 		activePowerPlants.add(building);
->>>>>>> Stashed changes
 	}
 	
 	public static void update() {
@@ -72,44 +69,40 @@ public class GameSim {
 		double gasEmissions = 0;
 		double gasPrice = 0;
 		double expenses = 0;
-<<<<<<< Updated upstream
-		for(PowerPlant p : activePowerPlants) {
-			switch(p.name()) {
-=======
 		for(PowerPlant pp : activePowerPlants) {
 			pp.update(tick);
 			BuildingInfo p = buildings.get(pp.name());
 			switch(p.name) {
->>>>>>> Stashed changes
 				case "Coal":
-					baselinePower += p.powerflow();
-					expenses -= p.cashFlow();
-					emissions += p.pollution();
+					baselinePower += p.powerflow;
+					expenses -= p.cashFlow;
+					emissions += p.pollution;
 					break;
 				case "Nuclear":
-					baselinePower += p.powerflow();
-					expenses -= p.cashFlow();
-					emissions += p.pollution();
+					baselinePower += p.powerflow;
+					expenses -= p.cashFlow;
+					emissions += p.pollution;
 					break;
 				case "Wind":
-					renewablePower += p.powerflow();
-					expenses -= p.cashFlow(); // should be 0 usually
-					emissions += p.pollution(); // should be 0 usually
+					renewablePower += p.powerflow;
+					expenses -= p.cashFlow; // should be 0 usually
+					emissions += p.pollution; // should be 0 usually
 					break;
 				case "Solar":
-					renewablePower += p.powerflow();
-					expenses -= p.cashFlow(); // should be 0 usually
-					emissions += p.pollution(); // should be 0 usually
+					renewablePower += p.powerflow;
+					expenses -= p.cashFlow; // should be 0 usually
+					emissions += p.pollution; // should be 0 usually
 					break;
 				case "Oil":
-					gasPowerCapacity += p.powerflow();
-					gasPrice -= p.cashFlow(); // gas price is the cost of the all the gas
-					gasEmissions += p.pollution(); // total emissions assuming full power
+					gasPowerCapacity += p.powerflow;
+					gasPrice -= p.cashFlow; // gas price is the cost of the all the gas
+					gasEmissions += p.pollution; // total emissions assuming full power
 					break;
 			}
 		}
 		double powerNeeds = energyTotal;
 		double pWithoutPower = 0;
+		double energyProduction = baselinePower + renewablePower;
 		energyTotal -= baselinePower;
 		energyTotal -= renewablePower;
 		if(energyTotal > 0) {
@@ -125,15 +118,12 @@ public class GameSim {
 			double gasCost = pOfGasRequired * gasPrice;
 			expenses += gasCost;
 			emissions += pOfGasRequired * gasEmissions;
+			energyProduction += pOfGasRequired * gasPowerCapacity;
 		}
 		double moneys = income - expenses;
-<<<<<<< Updated upstream
-=======
-		
 		money += moneys;
 		System.out.println("Energy needs: " + powerNeeds + " Energy production: " + energyProduction + " Percent without energy: " + pWithoutPower + " money: " + money);
 		tick++;
->>>>>>> Stashed changes
 	}
 	private static Building getBuilding(int id, int x, int y) {
 		switch(id) {
