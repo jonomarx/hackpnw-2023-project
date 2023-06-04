@@ -27,23 +27,22 @@ public class GameSim {
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
 		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 20, 100, 1, 1, new int[] {1,1}));
-		//buildings.add("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
-		//buildings.add("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
-		//buildings.add("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
-		//buildings.add("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
-		//buildings.add("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		//buildings.add("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
-		//buildings.add("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
+		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
+		buildings.put("Natural gas", new BuildingInfo("Natural gas", 100, -50, 2, 500, 1, 1, new int[] {1,1}));
+		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
+		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
+		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		buildings.put("Office", new BuildingInfo("Office", 100, -50, 0, 1, 1, 1, new int[] {1,1}));
+		buildings.put("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
 	// statuses of the stuff -Tien
 	
 	public static void init() throws IOException {
 		spriteSheet = new SpriteSheet("/res/testsheet.png", 4);
-		RenderLayer layer = new RenderLayer("tiles");
 		initTiles("/res/Starting-Map.png");
+		RenderLayer layer = new RenderLayer("tiles");
 		for(int i = 0; i < tiles.length; i++) {
 			for(int j = 0; j < tiles[0].length; j++) {
-				tiles[i][j] = new Tile(i,j);
 				layer.addObject(tiles[i][j]);
 			}
 		}
@@ -153,6 +152,11 @@ public class GameSim {
 		      tileWidth = img.getWidth();
 		      tileHeight = img.getHeight();
 		      tiles = new Tile[tileWidth][tileHeight];
+		      for(int i = 0; i < img.getHeight(); i++) {
+		    	  for(int j = 0; j < img.getWidth(); j++) {
+		    		  tiles[i][j] = new Tile(i,j);
+		    	  }
+		      }
 		      for (int y = 0; y < img.getHeight(); y++) {
 		         for (int x = 0; x < img.getWidth(); x++) {
 		            //Retrieving contents of a pixel
@@ -164,22 +168,15 @@ public class GameSim {
 		            int green = color.getGreen();
 		            int blue = color.getBlue();
 		            if(red==255&&green==0&&blue==0) {
-		            	tiles[x][y]= new Tile(x,y);
 		            	tiles[x][y].setContent(8);
 		            }
 		            else if(red==255&&green==255) {
-		            	tiles[x][y] = new Tile(x,y);
 		            	tiles[x][y].setContent(6);
 		            	activeConsumers.add((Consumer)getBuilding(6,x,y));
 		            }
 		            else if(blue==255) {
-		            	tiles[x][y] = new Tile(x,y);
 		            	tiles[x][y].setContent(1);
 		            	activePowerPlants.add((PowerPlant)getBuilding(1,x,y));
-		            }
-		            else {
-		            	tiles[x][y] = new Tile(x,y);
-		            	tiles[x][y].setContent(-1);
 		            }
 		         }
 		      }

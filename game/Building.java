@@ -31,9 +31,9 @@ public class Building {
 		try {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
-			if(tiles[i][j]==null) {
-			tiles[i][j] = new Tile(i,j);
-			}
+				if(tiles[i][j]==null) {
+					tiles[i][j] = new Tile(i,j);
+				}
 				tilesOccupied.add(tiles[i][j]);
 				tiles[i][j].setContent(id);
 			}

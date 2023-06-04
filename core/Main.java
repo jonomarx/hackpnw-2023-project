@@ -19,10 +19,10 @@ import game.GameSim;
 public class Main {
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
-	public static final int SCALE = 100;
+	public static final int SCALE = 10;
 	public static final int TICKSPERDAY = 6; // 4 hours
 	private static Renderer drawer;
-	private static final int MOVEAMOUNT = 5;
+	private static final int MOVEAMOUNT = 10;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		JFrame frame = new JFrame();

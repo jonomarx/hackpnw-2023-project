@@ -40,7 +40,6 @@ public class Tile implements Renderable {
 		int xx = (int)Math.round(x*Main.SCALE+yoffset); // it just works.
 		int yy = (int)Math.round(y*Main.SCALE+xoffset);
 		g.drawImage(GameSim.getSpriteSheet().getImage(content), xx, yy, Main.SCALE, Main.SCALE, null);
-		g.setColor(Color.BLACK);
 	}
 
 }
