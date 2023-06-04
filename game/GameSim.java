@@ -40,12 +40,12 @@ public class GameSim {
 	
 	public static HashMap<String,BuildingInfo> buildings = new HashMap<>();
 	static {
-		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 1.7, 100, 1, 1, new int[] {1,1}));
-		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 6, 6, new int[] {1,1}));
+		buildings.put("Coal", new BuildingInfo("Coal", 100, -50, 1.7, 100, 2, 2, new int[] {1,1}));
+		buildings.put("Nuclear", new BuildingInfo("Nuclear", 100, -50, 0, 532, 9, 4, new int[] {1,1}));
 		buildings.put("Natural Gas", new BuildingInfo("Natural Gas", 100, -50, 2, 1725, 1, 1, new int[] {1,1}));
-		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 18, 18, new int[] {1,1}));
+		buildings.put("Wind", new BuildingInfo("Wind", 100, -50, 0, 40, 19, 19, new int[] {1,1}));
 		buildings.put("Solar", new BuildingInfo("Solar", 100, -50, 0, 19, 1, 1, new int[] {1,1}));
-		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, -33.6473755047, 1, 1, new int[] {1,1}));
+		buildings.put("Residental", new BuildingInfo("Residental", 100, -50, 0, -33.6473755047, 4, 4, new int[] {1,1}));
 		buildings.put("Office", new BuildingInfo("Office", 100, -50, 0, -20.5479452055, 2, 2, new int[] {1,1}));
 		buildings.put("Road", new BuildingInfo("Road", 100, -50, 0, 0, 1, 1, new int[] {1,1}));
 	}
@@ -160,7 +160,10 @@ public class GameSim {
 				selector.setY(attempty);
 				selector.setWidth(attemptBuildBuilding.width*Main.SCALE);
 				selector.setHeight(attemptBuildBuilding.height*Main.SCALE);
-				selector.setColor(Color.GREEN);
+				selector.setColor(placeBuilding(selector.getX()/Main.SCALE, selector.getY()/Main.SCALE, attemptBuildBuilding.width, attemptBuildBuilding.height) ? Color.GREEN : Color.RED);
+				//System.out.println(selector.getX()/30 + " " + selector.getY()/30);
+				//System.out.println(selector.getX()/Main.SCALE + selector.getY()/Main.SCALE);
+				break;
 			case 2:
 				selector.setX(5*Main.SCALE);
 				selector.setY(5*Main.SCALE);
@@ -168,6 +171,8 @@ public class GameSim {
 				selector.setHeight(Main.SCALE);
 				selector.setColor(Color.RED);
 		}
+		attemptBuildBuilding = buildings.get("Nuclear");
+		selectState = 1;
 		
 		happiness -= 0.5;
 		hp.setHappiness(happiness);
@@ -282,10 +287,10 @@ public class GameSim {
 		return tiles;
 	}
 	
-	public boolean placeBuilding(int x, int y, int width, int height) {
+	public static boolean placeBuilding(int x, int y, int width, int height) {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
-				if(tiles[i][j].getContent()==-1) {
+				if(tiles[i][j].getContent() >= 0) {
 					return false;
 				}
 			}
