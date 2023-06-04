@@ -97,17 +97,19 @@ public class Main {
 		int tick = 0;
 		while(true) {
 			frame.repaint();
-			if(keys[0]) {
-				drawer.moveX(MOVEAMOUNT);
-			}
-			if(keys[1]) {
-				drawer.moveY(MOVEAMOUNT);
-			}
-			if(keys[2]) {
-				drawer.moveX(-MOVEAMOUNT);
-			}
-			if(keys[3]) {
-				drawer.moveY(-MOVEAMOUNT);
+			if(tick % 3 == 0) {
+				if(keys[0]) {
+					drawer.moveX(MOVEAMOUNT);
+				}
+				if(keys[1]) {
+					drawer.moveY(MOVEAMOUNT);
+				}
+				if(keys[2]) {
+					drawer.moveX(-MOVEAMOUNT);
+				}
+				if(keys[3]) {
+					drawer.moveY(-MOVEAMOUNT);
+				}
 			}
 			if(tick % 10 == 0) { // 6 ticks per second
 				GameSim.update();

@@ -29,6 +29,11 @@ public class GameSim {
 	private static GregorianCalendar cal;
 	private static DateAndTimeMeter dateMeter = new DateAndTimeMeter();
 	private static MoneyMeter moneyMeter = new MoneyMeter();
+	private static Selector selector = new Selector();
+	private static BuildingInfo attemptBuildBuilding = null;
+	private static int attemptx = 5*Main.SCALE;
+	private static int attempty = 5*Main.SCALE;
+	private static int selectState = 0; // select state, 0: none, 1: build, 2: delete
 	
 	private static ArrayList<Consumer> activeConsumers = new ArrayList<>();
 	private static ArrayList<PowerPlant> activePowerPlants = new ArrayList<>();
@@ -63,9 +68,15 @@ public class GameSim {
 		dateMeter.setText(Month.of(cal.get(GregorianCalendar.MONTH)).name() + " " + cal.get(GregorianCalendar.DAY_OF_MONTH) + ", " + cal.get(GregorianCalendar.YEAR) + " " + cal.get(GregorianCalendar.HOUR) + ":00");
 		moneyMeter = new MoneyMeter();
 		moneyMeter.setMoney(money);
+		selector.setX(250);
+		selector.setY(250);
+		selector.setWidth(Main.SCALE);
+		selector.setHeight(Main.SCALE);
+		selector.setColor(Color.GREEN);
 		layer2.addObject(hp);
 		layer2.addObject(dateMeter);
 		layer2.addObject(moneyMeter);
+		layer2.addObject(selector);
 		Main.addRenderLayer(layer2);
 	}
 	
@@ -140,6 +151,21 @@ public class GameSim {
 		double moneys = income - expenses;
 		money += moneys;
 		
+		switch(selectState) {
+			case 1:
+				selector.setX(attemptx);
+				selector.setY(attempty);
+				selector.setWidth(attemptBuildBuilding.width*Main.SCALE);
+				selector.setHeight(attemptBuildBuilding.height*Main.SCALE);
+				selector.setColor(Color.GREEN);
+			case 2:
+				selector.setX(5*Main.SCALE);
+				selector.setY(5*Main.SCALE);
+				selector.setWidth(Main.SCALE);
+				selector.setHeight(Main.SCALE);
+				selector.setColor(Color.RED);
+		}
+		
 		happiness -= 0.5;
 		hp.setHappiness(happiness);
 		cal.add(GregorianCalendar.HOUR, 4);
@@ -212,6 +238,34 @@ public class GameSim {
 			System.exit(10);
 		}
 	}
+	private static boolean deconstructTile(Tile t) {
+		boolean found=false;
+		for(int k = 0; k < activeConsumers.size(); k++) {
+			Consumer c = activeConsumers.get(k);
+			for(int i = c.x(); i <c.x()+c.width(); i++) {
+				for(int j = c.y(); j <c.y()+c.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						c.deconstruct();
+						return true;
+					}
+				}
+			}
+		}
+		for(int k = 0; k < activePowerPlants.size(); k++) {
+			PowerPlant p = activePowerPlants.get(k);
+			for(int i = p.x(); i <p.x()+p.width(); i++) {
+				for(int j = p.y(); j <p.y()+p.height(); j++) {
+					
+					if(i==t.getX()&&j==t.getY()) {
+						p.deconstruct();
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	public static SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
@@ -224,7 +278,14 @@ public class GameSim {
 		return tiles;
 	}
 	
-	public boolean placeBuilding(String type) {
-		return false;
+	public boolean placeBuilding(int x, int y, int width, int height) {
+		for(int i = x; i <x+width; i++) {
+			for(int j = y; j <y+height; j++) {
+				if(tiles[i][j].getContent()==-1) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
