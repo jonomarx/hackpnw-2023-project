@@ -1,1 +1,9 @@
 List of ids for buildings, add here :)
+Coal 1
+Nuclear 2
+Oil 3
+Wind 4
+Solar 5
+Residential 6
+Office 6
+Road 7

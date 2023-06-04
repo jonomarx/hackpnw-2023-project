@@ -14,8 +14,10 @@ public class Building {
 	private int y;
 	private final int width;
 	private final int height;
+	private final int id;
 	public Building(int xIn, int yIn, int widthIn, int heightIn, int priceIn, int cashFlowIn,
-					String nameIn, int pollutionIn, int powerflowIn) {
+					String nameIn, int pollutionIn, int powerflowIn, int idIn) {
+		id = idIn;
 		x=xIn;
 		y=yIn;
 		width=widthIn;
@@ -30,7 +32,7 @@ public class Building {
 		for(int i = x; i <x+width; i++) {
 			for(int j = y; j <y+height; j++) {
 				tilesOccupied.add(tiles[i][j]);
-				tiles[i][j].setContent(1);
+				tiles[i][j].setContent(id);
 			}
 		}
 		}
